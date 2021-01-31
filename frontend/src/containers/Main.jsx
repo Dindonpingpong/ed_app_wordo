@@ -12,19 +12,17 @@ import Game from './Game';
 const Main = () => {
     return (
         <>
-        <Router>
-            <Container>
+            <Router>
                 <Header />
                 <Switch>
-                    <Route exact path='/login' component={Login}/>
-                    <Route exact path='/game' component={GameCreate}/>
-                    <Route path='/game/:uuid' component={Game}/>
-                    <Route path='/friends' component={Friends}/>
-                    <Route path='/profile' component={Profile}/>
-                    <Route path='/settings' component={Settings}/>
+                    <Route exact path='/login' component={Login} />
+                    <Route exact path='/game' component={GameCreate} />
+                    <Route path='/game/:me/:uuid' component={Game} />
+                    <Route path='/friends' component={Friends} />
+                    <Route path='/profile' component={Profile} />
+                    <Route path='/settings' component={Settings} />
                 </Switch>
-            </Container>
-        </Router>
+            </Router>
         </>
     )
 }
