@@ -1,31 +1,43 @@
-module.exports = function (io) {
-    const mySpace = io.of('/socket');
-    let users = new Object();
 
-    function getKeyByValue(object, value) {
-        return Object.keys(object).find(key => object[key] === value);
-    }
+const { setStatus } = require('../models/user');
+
+module.exports = function (io) {
+    const mySpace = io.of('/socks');
+    let classics = new Map();
 
     mySpace.on('connection', (socket) => {
 
-        socket.on('log_in', (nickname) => {
-            users[nickname] = socket.id;
-            setStatus(["Online", nickname])
-                .then()
-                .catch();
-        });
+        socket.on('create_classico', (data) => {
+            const { uuid, me, you } = data;
 
-        socket.on('send_message', (data) => {
-            mySpace.emit(`new_message`, data);
-        });
+            classics.set(uuid, {
+                users: [me, you],
+                turn: me,
+                words: ['start']
+            });
+            socket.join(uuid);
+        })
 
-        socket.on('notification', (data) => {
-            if (data.newStatus === 'connect') {
-                let tmp = data;
-                [tmp.me, tmp.you] = [tmp.you, tmp.me];
-                mySpace.emit('new_notification', tmp);
-            }
-            mySpace.emit('new_notification', data);
+        socket.on('game', (data) => {
+            const { uuid, user } = data;
+
+            if (!classics.has(uuid) || !classics.get(uuid).users.includes(user))
+                return;
+
+            socket.emit('started', classics.get(uuid));
+        })
+
+        socket.on('new_word', (data) => {
+            const { uuid, user, word } = data;
+
+            if (!classics.has(uuid) || !classics.get(uuid).users.includes(user))
+                return;
+
+            let tmp = classics.get(uuid);
+            tmp.turn = user;
+            tmp.words.push(word);
+            classics.set(uuid, tmp);
+            socket.emit('started', tmp);
         })
 
         socket.on('disconnect', () => {

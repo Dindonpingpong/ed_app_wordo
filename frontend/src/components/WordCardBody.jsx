@@ -1,9 +1,7 @@
 import React from 'react';
 import { CardBody, CardTitle, Col, Row } from 'reactstrap';
 
-const WordCardBody = (props) => {
-    const { gameType, word } = props;
-
+const WordCardBody = ({ gameType, word }) => {
     return (
         <CardBody>
             <CardTitle className="mb-3">{gameType}</CardTitle>

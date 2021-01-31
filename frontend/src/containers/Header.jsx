@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, NavLink, Row, UncontrolledDropdown } from 'reactstrap';
+import { Container, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap';
 
 const Header = () => {
     const links = ['friends', 'login', 'profile', 'settings'];

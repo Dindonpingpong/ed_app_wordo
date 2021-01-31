@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
-const SendWordGroup = (props) => {
-    const { lastLetter, sendWord, setError } = props;
+const SendWordGroup = ({ lastLetter, sendWord, setError }) => {
     const [status, toggle] = useState(false);
     const [inputStatus, toggleInput] = useState(false);
     const [word, setWord] = useState();

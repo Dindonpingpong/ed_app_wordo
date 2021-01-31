@@ -3,25 +3,25 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { Alert, Card, Col, Container } from 'reactstrap';
 import SendWordGroup from '../components/SendWordGroup';
 import WordCardBody from '../components/WordCardBody';
-import socket from './../util/socket';
+// import socket from './../util/socket';
 
 const Game = () => {
     const [errorMessage, setError] = useState();
     const [word, sendWord] = useState();
     const { me, uuid } = useParams();
 
-    useEffect(() => {
-        socket.on(`word`, (newMessage) => {
-            pushChatMessage(messages, newMessage);
-        });
+    // useEffect(() => {
+    //     socket.on(`word`, (newMessage) => {
+    //         pushChatMessage(messages, newMessage);
+    //     });
 
-        socket.emit('room', {
-            uuid: uuid,
-            user: me
-        });
+    //     socket.emit('room', {
+    //         uuid: uuid,
+    //         user: me
+    //     });
 
-        return unsubscribe = () => socket.off(`new_message`);
-    }, []);
+    //     return unsubscribe = () => socket.off(`new_message`);
+    // }, []);
 
     return (
         <Container className="login">
